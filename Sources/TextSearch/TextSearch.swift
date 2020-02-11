@@ -13,11 +13,10 @@ public class Index<Element: Searchable, Key: Hashable> {
 
 	func add(element: Element, for key: Key) {
 		for field in Element.fields {
-			let originalString = element[keyPath: field]
-			let normalizedString = originalString.normalized
+			let string = element[keyPath: field]
 
-			for wordRange in normalizedString.words {
-				let word = String(normalizedString[wordRange])
+			for wordRange in string.words {
+				let word = String(string[wordRange]).normalized
 				if index.keys.contains(word) {
 					if index[word]!.keys.contains(key) {
 						index[word]![key]!.append(wordRange)
